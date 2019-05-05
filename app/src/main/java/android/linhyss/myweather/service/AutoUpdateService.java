@@ -61,6 +61,9 @@ public class AutoUpdateService extends Service {
                         SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(AutoUpdateService.this).edit();
                         editor.putString("weather", responseText);
                         editor.apply();
+                    }else{
+                        Log.d("---》","天气返回空");
+
                     }
                 }
 
