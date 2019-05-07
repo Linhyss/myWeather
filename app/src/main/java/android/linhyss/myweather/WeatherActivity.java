@@ -43,6 +43,8 @@ public class WeatherActivity extends AppCompatActivity {
 
     private Button navButton;
 
+    private Button settingButton;
+
     private TextView titleCity;
 
     private TextView titleUpdateTime;
@@ -95,6 +97,7 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh.setColorSchemeResources(R.color.colorPrimary);
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         navButton = (Button) findViewById(R.id.nav_button);
+        settingButton=(Button)findViewById(R.id.seting_button);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
         if (weatherString != null) {
@@ -111,6 +114,7 @@ public class WeatherActivity extends AppCompatActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+              //  updateBingPic();
                 requestWeather(mWeatherId);
             }
         });
@@ -118,6 +122,14 @@ public class WeatherActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 drawerLayout.openDrawer(GravityCompat.START);
+
+            }
+        });
+        settingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent i=new Intent(WeatherActivity.this,SettingActivity.class);
+                startActivity(i);
             }
         });
         String bingPic = prefs.getString("bing_pic", null);
@@ -127,19 +139,39 @@ public class WeatherActivity extends AppCompatActivity {
             loadBingPic();
         }
     }
+    /**
+     * 更新必应每日一图
+     */
+    private void updateBingPic() {
+        String requestBingPic = "http://guolin.tech/api/bing_pic";
+        HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String bingPic = response.body().string();
+                Log.d(TAG, "onResponse: "+bingPic);
+                SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
+                editor.putString("bing_pic", bingPic);
+                editor.apply();
+            }
 
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+        });
+    }
     private static final String TAG = "WeatherActivity";
     /**
      * 根据天气id请求城市天气信息。
      */
     public void requestWeather(final String weatherId) {
-        String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=bc0418b57b2d4918819d3974ac1285d9";
-        Log.d("-------------------》",weatherUrl);
+        String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=d6dd5827d0bb4a758b31c7f0966758f0";
+        //Log.d("-------------------》",weatherUrl);
         HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 final String responseText = response.body().string();
-                Log.d("-------------------》",responseText);
+               // Log.d("-------------------》",responseText);
                 final Weather weather = Utility.handleWeatherResponse(responseText);
                 runOnUiThread(new Runnable() {
                     @Override
@@ -148,7 +180,6 @@ public class WeatherActivity extends AppCompatActivity {
                             SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
                             editor.putString("weather", responseText);
                             editor.apply();
-                            Log.d(TAG, "run: weather!=null");
                             mWeatherId = weather.basic.weatherId;
                             showWeatherInfo(weather);
                         } else {

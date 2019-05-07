@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory
+        android:title="分组显示">
+        <SwitchPreference
+            android:title="自动更新天气"
+            android:defaultValue="true"
+            android:key="autoReflesh"/>
+        <PreferenceScreen
+            android:title="分享"
+            android:key="share">
+        </PreferenceScreen>
+        <ListPreference
+            android:title="天气自动更新时间"
+            android:entryValues="@array/refleshvalue"
+            android:dialogTitle="设置自动更新时间"
+            android:entries="@array/refleshvaluestring"
+            android:defaultValue="8"
+            android:key="refleshtime"
+            >
+        </ListPreference>
+        <PreferenceScreen
+            android:title="查看当前位置">
+            <intent
+                android:targetPackage="android.linhyss.myweather"
+                android:targetClass="android.linhyss.myweather.BaiduLBSActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="Listview测试">
+            <intent
+                android:targetPackage="android.linhyss.myweather"
+                android:targetClass="android.linhyss.myweather.ListviewActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="Recycler测试">
+            <intent
+                android:targetPackage="android.linhyss.myweather"
+                android:targetClass="android.linhyss.myweather.RecyclerviewActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="通知测试">
+            <intent
+                android:targetPackage="android.linhyss.myweather"
+                android:targetClass="android.linhyss.myweather.NotifyActivity" />
+        </PreferenceScreen>
+    </PreferenceCategory>
+
+</PreferenceScreen>
