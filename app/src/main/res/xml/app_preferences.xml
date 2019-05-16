@@ -44,6 +44,18 @@
                 android:targetPackage="android.linhyss.myweather"
                 android:targetClass="android.linhyss.myweather.NotifyActivity" />
         </PreferenceScreen>
+        <PreferenceScreen
+            android:title="下载测试">
+            <intent
+                android:targetPackage="android.linhyss.myweather"
+                android:targetClass="android.linhyss.myweather.DownloadActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="BLE4.0测试">
+            <intent
+                android:targetPackage="android.linhyss.myweather"
+                android:targetClass="android.linhyss.myweather.BluetoothActivity" />
+        </PreferenceScreen>
     </PreferenceCategory>
 
 </PreferenceScreen>

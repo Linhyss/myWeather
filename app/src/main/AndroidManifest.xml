@@ -2,6 +2,13 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="android.linhyss.myweather">
 
+    <uses-permission android:name="android.permission.BLUETOOTH" />
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
+    <!--模糊定位权限，仅作用于6.0+-->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <!--精准定位权限，仅作用于6.0+-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -43,7 +50,21 @@
             android:process=":remote" />
 
         <activity android:name=".RecyclerviewActivity" />
-        <activity android:name=".NotifyActivity"></activity>
+        <activity android:name=".NotifyActivity" />
+        <activity android:name=".test" />
+
+        <receiver
+            android:name=".BReceiver.DownLoadCompleteReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="android.intent.action.DOWNLOAD_COMPLETE" />
+                <action android:name="android.intent.action.DOWNLOAD_NOTIFICATION_CLICKED" />
+            </intent-filter>
+        </receiver>
+
+        <activity android:name=".DownloadActivity" />
+        <activity android:name=".BluetoothActivity"></activity>
     </application>
 
 </manifest>

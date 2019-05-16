@@ -1,3 +1,5 @@
+import org.apache.tools.ant.taskdefs.condition.Os
+
 apply plugin: 'com.android.application'
 
 android {
@@ -10,6 +12,9 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        ndk {
+            moduleName "hello" // <-- This is the name of my C++ module!
+        }
     }
     buildTypes {
         release {
@@ -17,13 +22,45 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+
+    sourceSets.main {
+        jni.srcDirs = []//禁用as自动生成mk
+    }
+
+//    task ndkBuild(type:Exec,description:'Compile JNI source via NDK'){
+//        Properties properties = new Properties()
+//        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+//
+//        def command = properties.getProperty('ndk.dir')
+//        if (Os.isFamily(Os.FAMILY_WINDOWS)) {
+//            command += "\\ndk-build.cmd"
+//        } else {
+//            command += "/ndk-build"
+//        }
+//        commandLine command,// '-C', file('/').absolutePath//配置ndk的路径
+//                'NDK_PROJECT_PATH=build/intermediates/ndk',//ndk默认的生成so的文件
+//                'NDK_LIBS_OUT=src/main/jniLibs',//配置的我们想要生成的so文件所在的位置
+//                'APP_BUILD_SCRIPT=src/main/jniLibs/myJni/Android.mk',//指定项目以这个mk的方式
+//                'NDK_APPLOCATION_MK=src/main/jniLibs/myJni/Application.mk'//指定项目以这个mk的方式
+//    }
+//    tasks.withType(JavaCompile){//使用ndkBuild
+//    compileTask ->compileTask.dependsOn ndkBuild
+//    }
+//
+
+
 }
+
+
+
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
+    //其中latest.release指代最新Bugly SDK版本号，也可以指定明确的版本号，例如2.2.0
     compile 'com.android.support:appcompat-v7:26.+'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
     compile 'com.github.bumptech.glide:glide:3.7.0'
@@ -31,5 +68,7 @@ dependencies {
     compile 'com.squareup.okhttp3:okhttp:3.4.1'
     compile 'com.google.code.gson:gson:2.7'
     compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.liulishuo.filedownloader:library:1.7.2'
+    compile 'com.tencent.bugly:crashreport:2.1.5'
     testCompile 'junit:junit:4.12'
 }

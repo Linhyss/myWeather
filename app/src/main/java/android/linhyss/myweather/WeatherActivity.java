@@ -1,10 +1,14 @@
 package android.linhyss.myweather;
 
+import android.app.DownloadManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.preference.PreferenceManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -21,6 +25,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.liulishuo.filedownloader.BaseDownloadTask;
+import com.liulishuo.filedownloader.FileDownloadListener;
+import com.liulishuo.filedownloader.FileDownloader;
+import com.tencent.bugly.crashreport.CrashReport;
+
 import android.linhyss.myweather.gson.Forecast;
 import android.linhyss.myweather.gson.Weather;
 import android.linhyss.myweather.service.AutoUpdateService;
@@ -32,6 +41,8 @@ import java.io.IOException;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 public class WeatherActivity extends AppCompatActivity {
 
@@ -100,6 +111,7 @@ public class WeatherActivity extends AppCompatActivity {
         settingButton=(Button)findViewById(R.id.seting_button);
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
         String weatherString = prefs.getString("weather", null);
+        CrashReport.initCrashReport(getApplicationContext(), "f2c727c6b3", false);
         if (weatherString != null) {
             // 有缓存时直接解析天气数据
             Weather weather = Utility.handleWeatherResponse(weatherString);
@@ -121,7 +133,8 @@ public class WeatherActivity extends AppCompatActivity {
         navButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
+               drawerLayout.openDrawer(GravityCompat.START);
+
 
             }
         });
@@ -139,6 +152,9 @@ public class WeatherActivity extends AppCompatActivity {
             loadBingPic();
         }
     }
+
+
+
     /**
      * 更新必应每日一图
      */
