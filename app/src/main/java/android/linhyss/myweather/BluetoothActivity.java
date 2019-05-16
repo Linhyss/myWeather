@@ -155,7 +155,7 @@ public class BluetoothActivity extends AppCompatActivity   {
                     if (mBluetoothGatt != null) {
                         boolean status = mBluetoothGatt.writeCharacteristic(mCharacteristic);
                         Log.e("dataSend", status + "");
-                    }
+                    } 
 
 
                 }
