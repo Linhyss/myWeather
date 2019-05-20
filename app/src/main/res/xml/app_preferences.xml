@@ -27,34 +27,40 @@
                 android:targetClass="android.linhyss.myweather.BaiduLBSActivity" />
         </PreferenceScreen>
         <PreferenceScreen
-            android:title="Listview测试">
+            android:title="Listview">
             <intent
                 android:targetPackage="android.linhyss.myweather"
                 android:targetClass="android.linhyss.myweather.ListviewActivity" />
         </PreferenceScreen>
         <PreferenceScreen
-            android:title="Recycler测试">
+            android:title="Recycler">
             <intent
                 android:targetPackage="android.linhyss.myweather"
                 android:targetClass="android.linhyss.myweather.RecyclerviewActivity" />
         </PreferenceScreen>
         <PreferenceScreen
-            android:title="通知测试">
+            android:title="通知">
             <intent
                 android:targetPackage="android.linhyss.myweather"
                 android:targetClass="android.linhyss.myweather.NotifyActivity" />
         </PreferenceScreen>
         <PreferenceScreen
-            android:title="下载测试">
+            android:title="下载app">
             <intent
                 android:targetPackage="android.linhyss.myweather"
                 android:targetClass="android.linhyss.myweather.DownloadActivity" />
         </PreferenceScreen>
         <PreferenceScreen
-            android:title="BLE4.0测试">
+            android:title="蓝牙BLE4.0">
             <intent
                 android:targetPackage="android.linhyss.myweather"
                 android:targetClass="android.linhyss.myweather.BluetoothActivity" />
+        </PreferenceScreen>
+        <PreferenceScreen
+            android:title="微信底部底部">
+            <intent
+                android:targetPackage="android.linhyss.myweather"
+                android:targetClass="android.linhyss.myweather.FragmentTabActivity" />
         </PreferenceScreen>
     </PreferenceCategory>
 
