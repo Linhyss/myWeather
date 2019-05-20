@@ -1,7 +1,9 @@
 package android.linhyss.myweather;
 
 import android.app.DownloadManager;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -10,6 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import java.io.File;
 
 public class DownloadActivity extends AppCompatActivity {
     private static final String TAG = "DownloadActivity";
@@ -38,11 +42,28 @@ public class DownloadActivity extends AppCompatActivity {
                 }else{
                     Toast.makeText(getApplicationContext(),"未知错误",Toast.LENGTH_SHORT).show();
                 }
+             //   installApk(DownloadActivity.this);
             }
         });
 
 
     }
+    // 安装Apk
+    private void installApk(Context context) {
+
+        try {
+            Intent i = new Intent(Intent.ACTION_VIEW);
+            String filePath = Environment.DIRECTORY_DOWNLOADS.toString()+"/jinritoutiao_448.apk";
+            i.setDataAndType(Uri.parse(filePath), "application/vnd.android.package-archive");
+            i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            context.startActivity(i);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
 
 
     private void download(String url,String path){
@@ -62,5 +83,16 @@ public class DownloadActivity extends AppCompatActivity {
         id= downManager.enqueue(request);
         Log.d(TAG, "download: 下载id="+id);
 
+    }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(downManager!=null&&id!=0) {
+            downManager.remove(id);
+        }else{
+            Toast.makeText(getApplicationContext(),"未知错误",Toast.LENGTH_SHORT).show();
+        }
     }
 }
