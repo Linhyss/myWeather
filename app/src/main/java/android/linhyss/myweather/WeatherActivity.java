@@ -153,7 +153,11 @@ public class WeatherActivity extends AppCompatActivity {
         }
     }
 
-
+    @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        updateBingPic();
+    }
 
     /**
      * 更新必应每日一图

@@ -25,6 +25,7 @@ public class ListviewActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listview);
         listView=(ListView)findViewById(R.id.list_view);
+
         for(int i=0;i<1000;i++) {
             Fruit fruit=new Fruit();
             fruit.setImgid(R.drawable.setting);

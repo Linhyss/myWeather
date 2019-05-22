@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TabHost;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class FragmentTabActivity extends AppCompatActivity {
     private FragmentTabHost mFragmentTabHost;
@@ -35,11 +36,8 @@ public class FragmentTabActivity extends AppCompatActivity {
             mFragmentTabHost.setOnTabChangedListener(new TabHost.OnTabChangeListener() {
                 @Override
                 public void onTabChanged(String tabId) {
-//                    if(tabId.equals(getString(Indicator.TEST.getResName()))){
-//                        mCount.setVisibility(View.VISIBLE);
-//                    }else{
-//                        mCount.setVisibility(View.GONE);
-//                    }
+                   // Toast.makeText(getApplicationContext(),"碎片"+tabId,Toast.LENGTH_SHORT).show();
+
                 }
             });
 
@@ -60,10 +58,8 @@ public class FragmentTabActivity extends AppCompatActivity {
 
         indicator.setTextSize(TypedValue.COMPLEX_UNIT_SP,10);
         Drawable icon = this.getResources().getDrawable(indicator1.getResIcon());
-//        自定义ICON大小
-//        icon.setBounds(0, 0, 75, 75);
-//        indicator.setCompoundDrawables(null,icon,null,null);
-        indicator.setCompoundDrawablePadding(3);
+
+        indicator.setCompoundDrawablePadding(2);
         indicator.setCompoundDrawablesWithIntrinsicBounds(null, icon, null, null);
         indicator.setPadding(0,8,0,5);
 

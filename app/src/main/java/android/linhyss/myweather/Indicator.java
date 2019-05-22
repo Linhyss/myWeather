@@ -27,14 +27,14 @@ package android.linhyss.myweather;
  */
 public enum Indicator {
 
-    REVIEW(0,R.string.app_name, R.drawable.tab_icon_review,
-            ChooseAreaFragment.class),
+    REVIEW(0,R.string.tab1, R.drawable.tab_icon_review,
+            Tab1Fragment.class),
 
-    TEST(1,R.string.app_name , R.drawable.tab_icon_test,
-            ChooseAreaFragment.class),
+    TEST(1,R.string.tab2 , R.drawable.tab_icon_test,
+            Tab2Fragment.class),
 
-    SETTING(2,R.string.app_name, R.drawable.tab_icon_other,
-            ChooseAreaFragment.class);
+    SETTING(2,R.string.tab3, R.drawable.tab_icon_other,
+            Tab3Fragment.class);
 
 
 
